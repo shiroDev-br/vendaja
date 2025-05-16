@@ -1,5 +1,5 @@
-from .infra.database.base import Base
-from .infra.database.database import engine
+from .database import engine
+from ..database.base import Base
 import asyncio
 
 
