@@ -11,7 +11,9 @@ services:
       db:
         condition: service_healthy
       rabbitmq:
+        condition: service_healthy
       redis:
+        condition: service_healthy
 
   db:
     image: postgres:15
@@ -45,16 +47,26 @@ services:
     volumes:
       - rabbitmq-lib:/var/lib/rabbitmq/
       - rabbitmq-log:/var/log/rabbitmq
+      - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
-    image: redis
+    image: redis:latest
+    container_name: redis
+    restart: always
+    volumes:
+      - redis-data:/data
     ports:
       - "6379:6379"
-
-configs:
-  rabbitmq-plugins:
-    content: "[rabbitmq_management]."  
-
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   pgdata:
@@ -62,3 +74,4 @@ volumes:
     driver: local
   rabbitmq-log:
     driver: local
+  redis-data:
