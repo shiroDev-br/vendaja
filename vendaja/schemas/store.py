@@ -1,9 +1,9 @@
 from pydantic import BaseModel, Field
-import uuid
+from datetime import datetime
 
-class StoreSchema(BaseModel):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+class CreateStoreSchema(BaseModel):
     name: str
     document: str
     email: str
     phone: str
+    created_at: datetime = Field(default_factory=datetime.now)
