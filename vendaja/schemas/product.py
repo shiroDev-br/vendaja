@@ -5,4 +5,4 @@ class CreateProductSchema(BaseModel):
     name: str
     price: float
     tax_rate: float
-    created_at = Field(default_factory=datetime.now)
+    created_at: datetime = Field(default_factory=datetime.now)
