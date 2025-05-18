@@ -17,4 +17,4 @@ class StoreModel(Base):
     whatsapp_token = Column(String(255), nullable=True, unique=True)
     rate_limit = Column(Integer, nullable=False, default=60)
     created_at = Column(DateTime(), default=datetime.utcnow, nullable=False)
-    created_at = Column(DateTime(), nullable=True)
+    updated_at = Column(DateTime(), nullable=True)
