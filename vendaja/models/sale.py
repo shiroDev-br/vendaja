@@ -3,13 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from ..infra.database.base import Base
 from datetime import datetime
 import uuid
-from enum import Enum
-
-class PaymentStatus(Enum):
-    AWAITING_PAYMENT='AWAITING_PAYMENT'
-    PROCESSING='PROCESSING'
-    COMPLETED='COMPLETED'
-    FAILED_PAYMENT='FAILED_PAYMENT'
+from ..enums.payment_status import PaymentStatus
 
 class SaleModel(Base):
     __tablename__ = 'sale_model'
