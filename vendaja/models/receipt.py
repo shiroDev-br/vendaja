@@ -3,7 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from ..infra.database.base import Base
 from datetime import datetime
 import uuid
-from ..enum.receipt_status import ReceiptStatus
+from ..enums.receipt_status import ReceiptStatus
 
 class ReceiptModel(Base):
     __tablename__='receipt_model'
