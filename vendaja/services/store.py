@@ -1,5 +1,11 @@
+from typing import Annotated
+
+from fastapi import Depends
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+
+from ..infra.database.session import get_session
 
 from ..schemas.store import CreateStoreSchema
 from ..models.store import StoreModel
@@ -34,3 +40,9 @@ class StoreService:
         await self.session.refresh(new_store)
 
         return new_store
+
+def get_store_service(
+    session: Annotated[AsyncSession, Depends(get_session)]
+):
+    return StoreService(session)
+    
