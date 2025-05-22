@@ -6,7 +6,7 @@ RUN pip install --no-cache-dir uv
 WORKDIR /app
 
 COPY pyproject.toml requirements.lock.txt ./
-RUN uv pip sync requirements.lock.txt
+RUN uv pip sync --system requirements.lock.txt
 
 COPY . .
 
