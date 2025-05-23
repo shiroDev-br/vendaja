@@ -11,4 +11,8 @@ class Settings(BaseSettings):
     POSTGRES_PORT: str
     RABBITMQ_DEFAULT_USER: str
     RABBITMQ_DEFAULT_PASS: str
-
+    SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRES_MINUTES: int
+    KEY_64: str
+    IV: str

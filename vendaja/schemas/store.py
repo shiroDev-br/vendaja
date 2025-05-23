@@ -1,8 +1,6 @@
-from pydantic import BaseModel, Field
-import uuid
+from pydantic import BaseModel
 
-class StoreSchema(BaseModel):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+class CreateStoreSchema(BaseModel):
     name: str
     document: str
     email: str

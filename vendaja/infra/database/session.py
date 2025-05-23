@@ -8,5 +8,5 @@ SessionLocal = async_sessionmaker(
 )
 
 async def get_session() -> AsyncSession:
-    with SessionLocal as session:
+    async with SessionLocal() as session:
         yield session
