@@ -11,6 +11,7 @@ from ..schemas.store import CreateStoreSchema
 from ..models.store import StoreModel
 
 from ..utils.security.data_processing import encrypt_fields
+from ..utils.security.hasher import hash_password
 from .exceptions import StoreAlreadyRegistered
 
 
@@ -22,6 +23,8 @@ class StoreService:
 
     async def create_store(self, store: CreateStoreSchema):
         encrypt_fields(store, self.sensive_fields)
+        store.password = hash_password(store.password)
+        
         conditions = (
             (StoreModel.email == store.email) |
             (StoreModel.phone == store.phone) |
