@@ -55,4 +55,3 @@ def get_store_service(
     session: Annotated[AsyncSession, Depends(get_session)]
 ):
     return StoreService(session)
-    
