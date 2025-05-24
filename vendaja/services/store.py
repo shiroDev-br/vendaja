@@ -23,7 +23,7 @@ class StoreService:
 
     async def create_store(self, store: CreateStoreSchema):
         encrypt_fields(store, self.sensive_fields)
-        store.password = str(hash_password(store.password))
+        store.password = hash_password(store.password)
 
         conditions = (
             (StoreModel.email == store.email) |

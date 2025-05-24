@@ -5,7 +5,7 @@ def hash_password(password):
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(encoded_password, salt)
 
-    return hashed_password
+    return hashed_password.decode('utf-8')
 
 
 def check_password(plain_password, hashed_password):
