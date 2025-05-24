@@ -18,6 +18,7 @@ async def test_create_store_success():
 
     store_data = CreateStoreSchema(
         name='Sualoja',
+        password='123',
         document='09827162',
         email="test@example.com",
         phone="123456789",

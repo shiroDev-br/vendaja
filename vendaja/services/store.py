@@ -11,6 +11,7 @@ from ..schemas.store import CreateStoreSchema
 from ..models.store import StoreModel
 
 from ..utils.security.data_processing import encrypt_fields
+from ..utils.security.hasher import hash_password
 from .exceptions import StoreAlreadyRegistered
 
 
@@ -22,6 +23,8 @@ class StoreService:
 
     async def create_store(self, store: CreateStoreSchema):
         encrypt_fields(store, self.sensive_fields)
+        store.password = str(hash_password(store.password))
+
         conditions = (
             (StoreModel.email == store.email) |
             (StoreModel.phone == store.phone) |
@@ -40,6 +43,13 @@ class StoreService:
         await self.session.refresh(new_store)
 
         return new_store
+
+    async def get_store_by_name(self, name: str) -> StoreModel:
+        user = await self.session.scalar(
+            select(StoreModel).where(StoreModel.name == name)
+        )
+
+        return user
 
 def get_store_service(
     session: Annotated[AsyncSession, Depends(get_session)]
