@@ -2,6 +2,7 @@ from typing import Annotated
 
 from fastapi import Depends, status
 from fastapi.exceptions import HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 import jwt
 import datetime
@@ -17,6 +18,7 @@ settings = Settings()
 
 SECRET_KEY = settings.SECRET_KEY
 
+security = HTTPBearer()
 
 def create_access_token(sub: dict):
     to_encode = sub.copy()
@@ -27,9 +29,11 @@ def create_access_token(sub: dict):
     return token
 
 async def get_current_user(
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
     store_service: Annotated[StoreService, Depends(get_store_service)],
-    token: str
 ):
+    token = credentials.credentials
+
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail='Could not validate credentials',
