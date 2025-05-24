@@ -16,3 +16,5 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRES_MINUTES: int
     KEY_64: str
     IV: str
+    DB_HOST: str
+    POSTGRES_USER: str
