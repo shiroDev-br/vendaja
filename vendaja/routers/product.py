@@ -24,7 +24,7 @@ async def register(
     product_service: Annotated[ProductService, Depends(get_product_service)],
     current_user: Annotated[StoreModel, Depends(get_current_user)]
 ):
-    new_product = product_service.create_product(product, current_user.id)
+    new_product = await product_service.create_product(product, current_user.id)
 
     return new_product
 
