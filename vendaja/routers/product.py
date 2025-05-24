@@ -15,7 +15,7 @@ product_router = APIRouter(
     prefix='/product'
 )
 
-@product_router(
+@product_router.post(
     '/register',
     status_code=status.HTTP_201_CREATED
 )

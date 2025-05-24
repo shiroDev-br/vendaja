@@ -1,9 +1,9 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from uuid import uuid
+from uuid import UUID
 
 class CreateProductSchema(BaseModel):
-    store_id: uuid = None
+    store_id: UUID | None = None
     name: str
     price: float
     tax_rate: float

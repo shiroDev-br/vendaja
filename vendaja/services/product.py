@@ -4,7 +4,7 @@ from fastapi import Depends
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from uuid import uuid
+from uuid import UUID
 
 from ..infra.database.session import get_session
 
@@ -19,7 +19,7 @@ class ProductService:
     async def create_product(
         self,
         product: CreateProductSchema,
-        store_id: uuid
+        store_id: UUID
     ) -> ProductModel:
 
         product.store_id = store_id
