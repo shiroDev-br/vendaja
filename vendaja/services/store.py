@@ -44,6 +44,13 @@ class StoreService:
 
         return new_store
 
+    async def get_store_by_name(self, name: str) -> StoreModel:
+        user = await self.session.scalar(
+            select(StoreModel).where(StoreModel.name == name)
+        )
+
+        return user
+
 def get_store_service(
     session: Annotated[AsyncSession, Depends(get_session)]
 ):
