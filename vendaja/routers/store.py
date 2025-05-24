@@ -2,12 +2,15 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
+from ..models.store import StoreModel
 from ..services.store import (
     StoreService,
     get_store_service
 )
 from ..services.exceptions import StoreAlreadyRegistered
 from ..schemas.store import CreateStoreSchema
+
+from ..utils.security.token_manager import get_current_user
 
 store_router = APIRouter(
     prefix='/store'
@@ -40,3 +43,11 @@ async def register(
         )
     
     return store
+
+@store_router.get(
+    '/test'
+)
+async def test(
+    current_user: Annotated[StoreModel, Depends(get_current_user)]
+):
+    return current_user

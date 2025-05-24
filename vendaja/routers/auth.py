@@ -46,8 +46,6 @@ async def login(
             detail='Incorrect name or password',
         )
 
-    access_token = create_access_token({
-        'name': store.name
-    })
+    access_token = create_access_token({'sub': store.name})
 
     return {"access_token": access_token, "token_type": 'Bearer'}
