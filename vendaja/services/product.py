@@ -3,7 +3,6 @@ from typing import Annotated
 from fastapi import Depends
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
 
 from uuid import uuid
 
@@ -24,3 +23,18 @@ class ProductService:
     ) -> ProductModel:
 
         product.store_id = store_id
+
+        new_product = ProductModel(
+            **product.model_dump()
+        )
+        self.session.add(new_product)
+        await self.session.commit()
+        await self.session.refresh(new_product)
+
+        return new_product
+
+
+async def get_product_service(
+    session: Annotated[AsyncSession, Depends(get_session)]
+):
+    return ProductService(session)
